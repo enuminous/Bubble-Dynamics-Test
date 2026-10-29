@@ -1,0 +1,20 @@
+{
+  "post_run_reporting_only": true,
+  "protocol_unchanged": true,
+  "analysis_source_unchanged": true,
+  "memory_trial_failures_by_criterion": {
+    "training_delta_chi2": 0,
+    "heldout_gain_below_20_percent": 0,
+    "heldout_wrmse_above_1_5": 27
+  },
+  "optimizer_starts_attempted": 3000,
+  "optimizer_starts_not_converged": 47,
+  "max_nonconverged_starts_in_one_trial": 2,
+  "trials_with_all_three_memory_starts_nonconverged": 0,
+  "no_trials_excluded": true,
+  "jacobian_independent_finite_difference_check": {
+    "relative_maximum_discrepancy": 5.20943255456543e-11,
+    "method": "Central finite differences, step 1e-6 per dimensionless/log parameter, at TRUE1 on training frequencies; checked after protocol execution began."
+  },
+  "interpretation": "The observed detection fraction misses the frozen 90% target. Its confidence interval includes 90%; this is a procedural failure, not proof that population sensitivity is below 90%. No parameters, noise, criteria, or seeds were retuned."
+}

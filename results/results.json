@@ -1,0 +1,134 @@
+{
+  "study_id": "EFMW-RP-001",
+  "data_status": "SYNTHETIC_ONLY",
+  "protocol_sha256": "83880cce64bca739711aff4277dfc59b9c387b1138592fa97c6dd7b8e134afa0",
+  "code_sha256": "fc3c21480b66a15ed9b29d0014e4afbd7c8ab0091ac4e0fcb7655820d484a627",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8"
+  },
+  "parameters": {
+    "rho_kg_m3": 998.0,
+    "R0_m": 5e-05,
+    "P0_Pa": 101325.0,
+    "pv_Pa": 2330.0,
+    "surface_tension_N_m": 0.072,
+    "kappa": 1.2,
+    "eta_effective_Pa_s": 0.01,
+    "G_memory_Pa": 10000.0,
+    "tau_s": 8e-06,
+    "drive_amplitude_Pa": 20.0,
+    "interpretation": "Illustrative, analyst-selected effective-medium parameters, not measured properties of an identified material or EFMW predictions."
+  },
+  "derived": {
+    "m_Pa_s2": 2.4950000000000003e-06,
+    "k_Pa": 363869.99999999994,
+    "b_Pa_s": 0.04,
+    "delta_k_Pa": 40000.0,
+    "pg0_Pa": 101875.0,
+    "nominal_resonance_Hz": 60779.62021649252,
+    "relaxation_corner_Hz": 19894.367886486918
+  },
+  "calibration_n": 500,
+  "calibration_delta_chi2_cutoff": 4.605608162369428,
+  "null_test": {
+    "n": 250,
+    "detected": 0,
+    "detection_fraction": 0.0,
+    "detection_fraction_wilson95": [
+      8.673617379884035e-19,
+      0.015133299495444574
+    ],
+    "heldout_rmse_reduction": {
+      "p2_5": -0.2713766690667943,
+      "median": -0.007555963982451952,
+      "p97_5": 0.021816194067644366
+    },
+    "heldout_wrmse_baseline": {
+      "p2_5": 0.8213850485568492,
+      "median": 0.9996087168140504,
+      "p97_5": 1.166646471521613
+    },
+    "heldout_wrmse_memory": {
+      "p2_5": 0.8368058959685032,
+      "median": 1.0266702807152221,
+      "p97_5": 1.311577342822652
+    },
+    "fitted_tau_us": {
+      "p2_5": 0.10000000000177801,
+      "median": 10.766199930818512,
+      "p97_5": 999.999999999999
+    },
+    "fitted_G_Pa": {
+      "p2_5": 0.0,
+      "median": 1048.0881520789185,
+      "p97_5": 81113.39205107409
+    },
+    "failed_optimizer_starts": 15
+  },
+  "memory_test": {
+    "n": 250,
+    "detected": 223,
+    "detection_fraction": 0.892,
+    "detection_fraction_wilson95": [
+      0.8474274415961268,
+      0.9247080515994447
+    ],
+    "heldout_rmse_reduction": {
+      "p2_5": 0.4724210767417864,
+      "median": 0.6144775990579422,
+      "p97_5": 0.6999973735734384
+    },
+    "heldout_wrmse_baseline": {
+      "p2_5": 2.7517630287246897,
+      "median": 3.0806708696720193,
+      "p97_5": 3.595367583217337
+    },
+    "heldout_wrmse_memory": {
+      "p2_5": 0.8995897441749423,
+      "median": 1.1776789822953662,
+      "p97_5": 1.6546810304176307
+    },
+    "fitted_tau_us": {
+      "p2_5": 6.830419253345085,
+      "median": 8.035780492889035,
+      "p97_5": 9.510091550540386
+    },
+    "fitted_G_Pa": {
+      "p2_5": 9165.180068188003,
+      "median": 10060.318861116324,
+      "p97_5": 10915.86160118444
+    },
+    "failed_optimizer_starts": 0
+  },
+  "algorithm_check": "FAIL",
+  "uniqueness_status": "FAIL_EXACT_CONVENTIONAL_MAXWELL_EQUIVALENCE",
+  "physical_truth_status": "UNRESOLVED_NO_EMPIRICAL_DATA",
+  "verification": {
+    "maxwell_max_relative_difference": 5.277331589395332e-15,
+    "thermal_surrogate_max_relative_difference": 7.766326996651563e-15,
+    "thermal_surrogate_kappa_high": 1.330879345603272,
+    "ode_max_relative_error": 2.0517941153503403e-11,
+    "nonlinear_RP_max_relative_error": 1.637095852427541e-05,
+    "maximum_fractional_radius_amplitude": 0.0013095356983977716,
+    "memory_eigenvalues_per_s": [
+      {
+        "real": -13810.793953881208,
+        "imag": 400689.95000471856
+      },
+      {
+        "real": -13810.793953881208,
+        "imag": -400689.95000471856
+      },
+      {
+        "real": -113410.47622049402,
+        "imag": 0.0
+      }
+    ],
+    "overall_status": "PASS"
+  },
+  "all_failed_optimizer_starts": 47,
+  "elapsed_seconds": 37.05397820472717
+}
