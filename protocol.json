@@ -1,0 +1,75 @@
+{
+  "study_id": "EFMW-RP-001",
+  "version": "1.0",
+  "date": "2026-10-29",
+  "type": "Computational feasibility and structural-identifiability test; all observations synthetic",
+  "frozen_before_execution": true,
+  "scope": "Small-amplitude response of an existing spherical bubble. No laboratory measurements, cavitation nucleation, particle creation, or Stoney-scale evolution are simulated.",
+  "hypotheses": {
+    "H_detect": "A one-pole passive relaxation response can be detected against a fitted constant-stiffness/constant-damping baseline at the specified noise and parameters.",
+    "H_unique": "The selected exponential-memory response is distinguishable from ordinary Maxwell viscoelasticity using radius/pressure frequency response alone.",
+    "H_physical": "EFMW, TUFT, or a universal Stoney-scale pulsation describes physical reality; unresolved without empirical evidence and an independently derived distinctive prediction."
+  },
+  "parameters": {
+    "rho_kg_m3": 998.0,
+    "R0_m": 0.00005,
+    "P0_Pa": 101325.0,
+    "pv_Pa": 2330.0,
+    "surface_tension_N_m": 0.072,
+    "kappa": 1.2,
+    "eta_effective_Pa_s": 0.01,
+    "G_memory_Pa": 10000.0,
+    "tau_s": 0.000008,
+    "drive_amplitude_Pa": 20.0,
+    "interpretation": "Illustrative, analyst-selected effective-medium parameters, not measured properties of an identified material or EFMW predictions."
+  },
+  "equations": {
+    "x": "(R-R0)/R0",
+    "m": "rho*R0^2 [Pa s^2]",
+    "b": "4*eta_effective [Pa s]",
+    "pg0": "P0-pv+2*surface_tension/R0 [Pa]",
+    "k": "3*kappa*pg0-2*surface_tension/R0 [Pa]",
+    "delta_k": "4*G_memory [Pa]",
+    "dynamics": "m*x_ddot + b*x_dot + k*x + q = -p_drive(t); tau*q_dot+q=delta_k*tau*x_dot",
+    "H1": "x_hat/p_hat=-1/(k-m*omega^2+i*b*omega+delta_k*i*omega*tau/(1+i*omega*tau))",
+    "H0": "H1 with delta_k=0",
+    "Maxwell": "Gstar=G_memory*i*omega*tau/(1+i*omega*tau); add 4*Gstar to bubble dynamic stiffness",
+    "thermal_counterexample": "kappa_star=kappa+delta_k/(3*pg0)*i*omega*tau/(1+i*omega*tau). This is an illustrative lumped thermal-relaxation surrogate, not the complete gas heat-diffusion solution."
+  },
+  "design": {
+    "frequency_grid": "61 geometrically spaced frequencies from 2000 to 200000 Hz",
+    "training": "Even zero-based frequency indices; 31 frequencies",
+    "held_out": "Odd zero-based frequency indices; 30 frequencies; interpolation only",
+    "noise": "Independent Gaussian noise in each complex quadrature of H, with standard deviation 5e-8 Pa^-1; fixed known noise for this synthetic experiment",
+    "sigma_H_per_quadrature_Pa_inverse": 0.00000005,
+    "null_calibration_replicates": 500,
+    "independent_null_test_replicates": 250,
+    "independent_memory_test_replicates": 250,
+    "seeds": {"calibration": 2026102901, "null_test": 2026102902, "memory_test": 2026102903},
+    "baseline_fit": "Fit stiffness and damping on training frequencies; inertia fixed at the synthetic calibrated value",
+    "memory_fit": "Fit stiffness, damping, memory strength and relaxation time on training frequencies; no held-out tuning",
+    "bounds": {"k_over_nominal_k": [0.5, 2.0], "b_times_omega0_over_nominal_k": [0.00001, 1.5], "delta_k_over_nominal_k": [0.0, 1.0], "tau_s": [0.0000001, 0.001]},
+    "optimizer": "scipy least_squares with analytic Jacobian, bounded; memory starts at tau=1e-6,1e-5,1e-4 seconds; exact nested-null fallback retained"
+  },
+  "decision_rules": {
+    "calibration_cutoff": "95th percentile (higher order statistic) of training delta chi-square from 500 null calibration replicates; boundary/nonidentified tau handled by simulation rather than a naive chi-square law",
+    "relaxation_detected": "Training delta chi-square exceeds calibration cutoff AND held-out weighted RMSE falls by at least 20% AND memory-model held-out weighted RMSE is at most 1.5",
+    "algorithm_check_pass": "Independent-null detection fraction <=0.05 and injected-memory detection fraction >=0.90; this verifies only synthetic detection performance",
+    "uniqueness_failure": "A conventional constitutive model yields the same transfer function algebraically; numeric relative discrepancy below 1e-12 is a cross-check, not the proof",
+    "ode_check": "Complex transfer from time integration agrees with analytic transfer to relative error <1e-5 at 5 kHz,20 kHz,nominal resonance,150 kHz for both null and memory",
+    "linearization_check": "The first harmonic from nonlinear Newtonian RP at drive amplitude 20 Pa agrees with linear H0 to relative error <0.01 at the same frequencies",
+    "small_amplitude": "Analytic maximum fractional radius amplitude <0.01 on a dense 2-200 kHz grid",
+    "falsification": "Failure of the detection rules is retained and reported. No adjustment to signal, noise, split, or thresholds after seeing results."
+  },
+  "limitations": [
+    "Synthetic data cannot establish existence of the selected memory term.",
+    "The memory kernel is analyst-specified, not derived from EFMW or TUFT.",
+    "Synthetic known inertia and noise are not independent laboratory calibrations.",
+    "The baseline has constant effective damping and polytropic stiffness. It does not implement full frequency-dependent gas thermodynamics, radiation, compressible dynamics, or non-spherical modes.",
+    "A Maxwell constitutive response is an exact conventional explanation for the chosen memory model.",
+    "A one-pole thermal surrogate is another exact algebraic explanation, but is not claimed to be exact heat-diffusion physics.",
+    "This is a single illustrative parameter/noise setting and held-out interpolation, not a broad sensitivity or instrument feasibility survey.",
+    "No switch between high- and low-pressure regimes is specified in the proposal; this computation cannot test that switch.",
+    "No named Zoo animals are invented; the explicit operation checks implement the skill's consistency, anti-circularity and falsification requirements."
+  ]
+}
